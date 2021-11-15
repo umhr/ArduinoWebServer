@@ -114,9 +114,11 @@ void loop() {
         // so you can send a reply
         if (c == '\n' && currentLineIsBlank) {
           headerGET = header.substring(header.indexOf(" ")+1, header.lastIndexOf(" "));
-          client.println("HTTP/1.1 200 OK");
           // favicon.ico対策
           if(headerGET == "/favicon.ico"){
+            client.println("HTTP/1.1 204 OK");
+            client.println("Connection: close");
+            client.println("");
             break;
           }
           // ?より前までをパスとして取得
